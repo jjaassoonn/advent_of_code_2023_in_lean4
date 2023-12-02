@@ -15,7 +15,7 @@ match s with
 | [a, b] => .some <| 10 * b + a
 | n::_::ns => firstLastListFlip (n::ns)
 
-def data := IO.FS.Handle.mk (.mk "Advent/day1_data.txt") (.read)
+def data := IO.FS.Handle.mk (.mk "Advent/day1/data.txt") (.read)
 
 instance : Add (Option Nat) :=
 ⟨fun a b ↦ match a, b with

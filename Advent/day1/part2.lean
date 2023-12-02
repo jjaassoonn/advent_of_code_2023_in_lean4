@@ -60,7 +60,7 @@ let y := processStringLast s
 x >>= fun x ↦ match y with |.none => .none | .some y => (10 * x + y)
 
 def data : IO <| List String :=
-  IO.FS.Handle.mk (.mk "Advent/day1_data.txt") (.read) >>= IO.FS.Handle.readToEnd >>=
+  IO.FS.Handle.mk (.mk "Advent/day1/data.txt") (.read) >>= IO.FS.Handle.readToEnd >>=
     fun s ↦ return s.splitOn "\n"
 
 instance : Add (Option Nat) :=
