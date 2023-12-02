@@ -1,4 +1,4 @@
-namespace day1_2
+namespace day1.part2
 
 def processStringFst (s : String) : Option Nat :=
 match s with
@@ -74,4 +74,4 @@ def main : IO Unit := do
   let s ← data
   IO.println <| (s.map processString).foldr (· + ·) .none
 
-end day1_2
+end day1.part2

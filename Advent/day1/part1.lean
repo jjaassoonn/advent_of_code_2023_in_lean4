@@ -1,4 +1,4 @@
-namespace day1_1
+namespace day1.part1
 
 def numbers : List Char := ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 
@@ -31,4 +31,4 @@ def main : IO Unit := do
   IO.println <| ((strings.split (fun x ↦ x = '\n')).map (firstLastListFlip <| string2numberList' · [])).foldl
     (· + ·) (some 0)
 
-end day1_1
+end day1.part1

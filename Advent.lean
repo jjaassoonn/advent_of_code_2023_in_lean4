@@ -2,3 +2,5 @@
 -- Import modules here that should be built as part of the library.
 import «Advent».day1.part1
 import «Advent».day1.part2
+import «Advent».day2.part1
+import «Advent».day2.part2

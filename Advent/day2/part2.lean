@@ -1,3 +1,5 @@
+namespace day2.part2
+
 def data : IO <| List String :=
   IO.FS.Handle.mk (.mk "Advent/day2/data.txt") (.read) >>= IO.FS.Handle.readToEnd >>=
     fun s ↦ return s.trimRight.splitOn "\n"
@@ -54,4 +56,4 @@ def main : IO Unit := do
   IO.println <|
     s.map processString |>.map Result.max |>.map Result.power |>.foldl (·+·) 0
 
-#eval main
+end day2.part2

@@ -1,3 +1,4 @@
+namespace day2.part1
 
 def data : IO <| List String :=
   IO.FS.Handle.mk (.mk "Advent/day2/data.txt") (.read) >>= IO.FS.Handle.readToEnd >>=
@@ -54,4 +55,4 @@ def main : IO Unit := do
     s.map processString |>.filter (fun x ↦ x.2.foldl (·&&·) true) |>.map (·.1)
       |>.foldl (·+·) 0
 
-#eval main
+end day2.part1
