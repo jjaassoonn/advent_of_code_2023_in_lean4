@@ -1,6 +1,9 @@
 import Lake
 open Lake DSL
 
+require mathlib from git "https://github.com/leanprover-community/mathlib4"
+-- require «memo-nat» from git "https://github.com/nomeata/lean4-memo-nat/"
+
 package «advent» where
   -- add package configuration options here
 
