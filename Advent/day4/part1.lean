@@ -15,13 +15,11 @@ def processLine (s : String) :=
   s''
 
 def main : IO Unit := do
-  let file ← IO.FS.Handle.mk "advent/Advent/day4/data.txt" .read
+  let file ← IO.FS.Handle.mk "Advent/day4/data.txt" .read
   let fileContent ← IO.FS.Handle.readToEnd file
   let lines := fileContent.splitOn "\n"
   let games := lines.map processLine
   IO.println <| games.map (fun g ↦ countElems (g.get! 0) (g.get! 1)) |>.map
     (fun x ↦ if x > 0 then 2 ^ x.pred else 0) |>.foldl (·+·) 0
-
-#eval main
 
 end day4.part1

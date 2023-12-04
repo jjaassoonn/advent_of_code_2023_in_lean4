@@ -25,6 +25,21 @@ def winNumLookUp (s : List String) : List <| Nat × Nat :=
   (processGames s).map fun ⟨linum, content⟩ ↦
     (linum, countElems content.1 content.2)
 
+/--
+slow
+
+but if we use `https://github.com/nomeata/lean4-memo-nat`
+
+def calcNumOfGames (wins : List <| Nat × Nat) : Nat → Nat :=
+```lean
+NatMemo.memo fun n f ↦ 1 + show Nat from
+  List.range n
+    |>.filter (fun j ↦ (wins.get! j).2 + j + 1 > n)
+    |>.map (fun i ↦ f i sorry)
+    |>.foldl (. + .) 0
+```
+very fast
+-/
 unsafe def calcNumOfGames (wins : List <| Nat × Nat) : Nat → Nat
   | .zero => 1
   | .succ n =>
@@ -44,11 +59,12 @@ unsafe def calcNumOfGames (wins : List <| Nat × Nat) : Nat → Nat
 -- #eval (List.range 6 |>.map <| calcNumOfGames (winNumLookUp <| exampleData.splitOn "\n")).foldl (.+.) 0
 
 unsafe def main : IO Unit := do
-  let file ← IO.FS.Handle.mk "/home/jasonzhang/repos/advent_of_code/2023/advent/Advent/day4/data.txt" .read
+  let file ← IO.FS.Handle.mk "Advent/day4/data.txt" .read
   let fileContent ← IO.FS.Handle.readToEnd file
   let lines := fileContent.splitOn "\n"
   let winNums := winNumLookUp lines
   IO.println <| List.range 216 |>.map (calcNumOfGames winNums) |>.foldl (. + .) 0
 
-#eval main
+-- #eval main
+-- 5571760
 end day4.part2

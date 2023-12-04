@@ -56,4 +56,5 @@ def main : IO Unit := do
   IO.println <|
     s.map processString |>.map Result.max |>.map Result.power |>.foldl (·+·) 0
 
+
 end day2.part2

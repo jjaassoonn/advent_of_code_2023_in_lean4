@@ -23,26 +23,20 @@ def adjacentCoords (pos : Nat × Nat) (length : Nat) :
       | ⟨_, .none⟩ => .none
       | ⟨.some a, .some b⟩ => .some ⟨a, b⟩
 
-def data := IO.FS.Handle.mk (.mk "advent/Advent/day3/data.txt") (.read)
+def data := IO.FS.Handle.mk (.mk "Advent/day3/data.txt") (.read)
 
 def s : String := ".854...........................................................................362...........271...732........838.........24................"
 def findNumericListOfChar (s : List Char) : List (List Char) :=
   s.groupBy (fun a b ↦ a.isDigit ∧ b.isDigit)
-
-#eval findNumericListOfChar s.data
 
 def accumulate (s : List Nat) (init : Nat) : List Nat :=
 match s with
 | [] => [init]
 | x::l => init :: accumulate l (x + init)
 
-#eval accumulate [1, 2, 3] 0
-
 def calcPosition (s : List (List Char)) : List (Nat × List Char) :=
   let lengths := s.map List.length
   accumulate lengths 0 |>.zip s
-
-#eval calcPosition <| findNumericListOfChar s.data
 
 def listOfPositionWithLength (s : List (Nat × List Char)) :
   List (Nat × Nat × Nat) :=
@@ -52,8 +46,6 @@ s.filter (fun p ↦ p.2.head!.isDigit) |>.map
 def processLine : String → List (Nat × Nat × Nat) :=
   listOfPositionWithLength ∘ calcPosition ∘ findNumericListOfChar ∘ String.data
 
-#eval processLine s
--- ((x, y), length)
 def processLines' (s : List String) : List <| List ((Nat × Nat) × Nat × Nat) :=
   s.enum.map fun ⟨linum, content⟩ ↦
     processLine content |>.map
@@ -77,7 +69,5 @@ def main : IO Unit := do
   let result := processedData.map fun x ↦ checkNeighbouring strings x
 
   IO.println <| ((result.filter fun p => p.1).map fun p => p.2).foldl (. + .) 0
-
-#eval main
 
 end day3.part1

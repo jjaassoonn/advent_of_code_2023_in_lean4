@@ -1,10 +1,10 @@
 namespace day3.part2
 
-def _root_.Nat.sub' (m n : Nat) : Option Nat :=
+def _root_.Nat.sub'' (m n : Nat) : Option Nat :=
 if n ≤ m then .some (m - n) else .none
 
 def data : IO <| List String :=
-  IO.FS.Handle.mk (.mk "advent/Advent/day3/data.txt") (.read) >>= fun d ↦
+  IO.FS.Handle.mk (.mk "Advent/day3/data.txt") (.read) >>= fun d ↦
     (String.splitOn · "\n") <$> IO.FS.Handle.readToEnd d
 
 def starPositions (grid : List <| List Char) : List (Nat × Nat) :=
@@ -20,21 +20,21 @@ def starPositions (grid : List <| List Char) : List (Nat × Nat) :=
 -/
 def createGrid (coord : Nat × Nat) : List <| List (Nat × Nat) :=
   let top : List (Nat × Nat) :=
-    [ (coord.1.sub' 1, coord.2.sub' 3),
-      (coord.1.sub' 1, coord.2.sub' 2),
-      (coord.1.sub' 1, coord.2.sub' 1),
-      (coord.1.sub' 1, .some coord.2),
-      (coord.1.sub' 1, .some coord.2.succ),
-      (coord.1.sub' 1, .some coord.2.succ.succ),
-      (coord.1.sub' 1, .some coord.2.succ.succ.succ) ]
+    [ (coord.1.sub'' 1, coord.2.sub'' 3),
+      (coord.1.sub'' 1, coord.2.sub'' 2),
+      (coord.1.sub'' 1, coord.2.sub'' 1),
+      (coord.1.sub'' 1, .some coord.2),
+      (coord.1.sub'' 1, .some coord.2.succ),
+      (coord.1.sub'' 1, .some coord.2.succ.succ),
+      (coord.1.sub'' 1, .some coord.2.succ.succ.succ) ]
       |>.filterMap fun
       | ⟨.none, _⟩ => .none
       | ⟨_, .none⟩ => .none
       | ⟨.some x, .some y⟩ => .some (x, y)
   let bot : List (Nat × Nat) :=
-    [ ((.some coord.1.succ : Option Nat), coord.2.sub' 3),
-      ((.some coord.1.succ : Option Nat), coord.2.sub' 2),
-      ((.some coord.1.succ : Option Nat), coord.2.sub' 1),
+    [ ((.some coord.1.succ : Option Nat), coord.2.sub'' 3),
+      ((.some coord.1.succ : Option Nat), coord.2.sub'' 2),
+      ((.some coord.1.succ : Option Nat), coord.2.sub'' 1),
       ((.some coord.1.succ : Option Nat), .some coord.2),
       ((.some coord.1.succ : Option Nat), .some coord.2.succ),
       ((.some coord.1.succ : Option Nat), .some coord.2.succ.succ),
@@ -44,9 +44,9 @@ def createGrid (coord : Nat × Nat) : List <| List (Nat × Nat) :=
       | ⟨_, .none⟩ => .none
       | ⟨.some x, .some y⟩ => .some (x, y)
   let left : List (Nat × Nat) :=
-    [ ((.some coord.1 : Option Nat), coord.2.sub' 3),
-      ((.some coord.1 : Option Nat), coord.2.sub' 2),
-      ((.some coord.1 : Option Nat), coord.2.sub' 1) ]
+    [ ((.some coord.1 : Option Nat), coord.2.sub'' 3),
+      ((.some coord.1 : Option Nat), coord.2.sub'' 2),
+      ((.some coord.1 : Option Nat), coord.2.sub'' 1) ]
       |>.filterMap fun
       | ⟨.none, _⟩ => .none
       | ⟨_, .none⟩ => .none
@@ -117,8 +117,5 @@ def main : IO Unit := do
   IO.println <| numbers
     |>.filter (·.length = 2)
     |>.map (fun x ↦ x.foldl (·*·) 1) |>.foldl (·+·) 0
-
-
-#eval main
 
 end day3.part2
