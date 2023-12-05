@@ -1,3 +1,4 @@
 import «Advent»
 
-unsafe def main : IO Unit := IO.println "Hello"
+def main : IO Unit :=
+  day5.part1.main

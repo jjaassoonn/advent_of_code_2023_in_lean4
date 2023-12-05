@@ -8,3 +8,4 @@ import «Advent».day3.part1
 import «Advent».day3.part2
 import «Advent».day4.part1
 import «Advent».day4.part2
+import «Advent».day5.part1
